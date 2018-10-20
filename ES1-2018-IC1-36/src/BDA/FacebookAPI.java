@@ -103,7 +103,46 @@ public class FacebookAPI {
 		}
 
 		System.out.println("Done Save");
+	}
+	
+	public void readFile() {
+		BufferedReader br;
 
+		jarray = new JSONArray();
+		try {
+			Scanner sc = new Scanner(new File("facebookdata.txt"));
+			System.out.println("ola1");
+
+			while (sc.hasNextLine()) {
+				String line = sc.nextLine();
+				System.out.println("ola2");
+				try {
+					JSONObject obj = new JSONObject(line);
+					System.out.println("A Linha é " + line);
+					System.out.println("O objeto é " + obj);
+					jarray.put(obj);
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				
+			}	
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		fb.fillJlist(jarray);
 
 	}
+
+	public int getNregistos() {
+		return nregistos;
+	}
+	
 }
