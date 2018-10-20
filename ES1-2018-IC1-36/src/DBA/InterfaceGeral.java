@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 package DBA;
+=======
+package BDA;
+>>>>>>> branch 'master' of https://github.com/pbboo-iscteiulpt/ES1-2018-IC1-36.git
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
