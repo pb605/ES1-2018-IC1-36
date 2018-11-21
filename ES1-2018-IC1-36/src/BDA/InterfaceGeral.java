@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-package DBA;
-=======
 package BDA;
->>>>>>> branch 'master' of https://github.com/pbboo-iscteiulpt/ES1-2018-IC1-36.git
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -93,6 +89,10 @@ public class InterfaceGeral {
 		JButton EmailButton = new JButton("Email");
 		EmailButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				frame.setVisible(false);
+				EmailAPI t = new EmailAPI();
+				t.startInterface(geral);
 				
 			}
 		});
