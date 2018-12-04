@@ -24,7 +24,7 @@ public class InterfaceEmail {
 	private JTable table;
 	private InterfaceGeral geral;
 
-	public InterfaceEmail(InterfaceGeral ig) {
+	public InterfaceEmail(InterfaceGeral ig,String email, String pass) {
 		geral = ig; 
 		JFrame frame = new JFrame("Email");
 		frame.setVisible(true);
@@ -42,38 +42,38 @@ public class InterfaceEmail {
 		JButton btnNewButton_1 = new JButton("Novo Email");
 		panel.add(btnNewButton_1);
 		btnNewButton_1.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {	
 				frame.dispose();
-				InterfaceEnviarEmail ienviar = new InterfaceEnviarEmail("", "");
-				
+				InterfaceEnviarEmail ienviar = new InterfaceEnviarEmail(email, pass);
+
 			}
 		});
-		
+
 
 		JButton buttonBack = new JButton("Back");
 		panel.add(buttonBack);
 		buttonBack.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {	
 				frame.dispose();
 				geral.openagain();
-				
+
 			}
 		});
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
-		
+
 		table = new JTable();
 		scrollPane.setViewportView(table);
 	}
-	
+
 	public void fillJlist(JSONArray jarray) {
 		System.out.println("passou2");
-		
+
 		System.out.println(jarray.length());
 
 		Object[][] data = new Object[jarray.length()][2];
@@ -92,7 +92,7 @@ public class InterfaceEmail {
 
 		}
 		DefaultTableModel ManModel = new DefaultTableModel(data, new String[] {"Mensagem", "Data"});
-		
+
 		table.setModel(ManModel);
 		table.getColumnModel().getColumn(0).setPreferredWidth(450);
 	}

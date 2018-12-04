@@ -51,6 +51,8 @@ public class InterfaceGeral {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				FacebookAPI f = new FacebookAPI();
+				f.setSearchword(SearchField.getText());
+				f.connect();
 				FacebookLabel.setText(Integer.toString(f.getNregistos()));
 				
 				TwitterApi t = new TwitterApi();
@@ -98,17 +100,6 @@ public class InterfaceGeral {
 		});
 		EmailButton.setBounds(38, 196, 173, 43);
 		frame.add(EmailButton);
-		
-		JButton ConfigButton = new JButton("Config");
-		ConfigButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
-		ConfigButton.setBounds(38, 250, 173, 43);
-		frame.add(ConfigButton);
-		
-		
 		
 	}
 	

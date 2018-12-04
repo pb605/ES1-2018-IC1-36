@@ -36,15 +36,14 @@ import javax.swing.border.LineBorder;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 
-public class InterfaceTwitter {
+public class InterfaceFacebook {
 	private JTable table;
-	
 	private InterfaceGeral geral;
 
-	public InterfaceTwitter(InterfaceGeral ig) {
+	public InterfaceFacebook(InterfaceGeral ig) {
 		geral = ig;
 
-		JFrame contentPanel = new JFrame("Twitter");
+		JFrame contentPanel = new JFrame("Facebook");
 		
 		contentPanel.setVisible(true);
 		contentPanel.setBounds(100, 100, 561, 372);
@@ -54,11 +53,6 @@ public class InterfaceTwitter {
 		JPanel panel = new JPanel();
 		contentPanel.getContentPane().add(panel, BorderLayout.SOUTH);
 		
-		JButton btnNewButton_1 = new JButton("New button");
-		panel.add(btnNewButton_1);
-		
-		JButton btnNewButton = new JButton("New button");
-		panel.add(btnNewButton);
 		
 		JButton buttonBack = new JButton("Back");
 		panel.add(buttonBack);
@@ -71,6 +65,7 @@ public class InterfaceTwitter {
 				
 			}
 		});
+		
 		
 		JScrollPane scrollPane = new JScrollPane();
 		contentPanel.getContentPane().add(scrollPane, BorderLayout.CENTER);
@@ -93,8 +88,8 @@ public class InterfaceTwitter {
 			try {
 				JSONObject obj = jarray.getJSONObject(i);
 				System.out.println("ola");
-				data[i][0] = obj.get("name");
-				data[i][1] = obj.get("texto");
+				data[i][0] = obj.get("message");
+				data[i][1] = obj.get("data");
 				System.out.println(obj);
 
 			} catch (JSONException e) {
@@ -103,9 +98,10 @@ public class InterfaceTwitter {
 			}
 
 		}
-		DefaultTableModel ManModel = new DefaultTableModel(data, new String[] {"Utilizador", "Mensagem"});
+		DefaultTableModel ManModel = new DefaultTableModel(data, new String[] {"Mensagem", "Data", "User"});
 		
 		table.setModel(ManModel);
-		table.getColumnModel().getColumn(1).setPreferredWidth(350);
+		table.getColumnModel().getColumn(0).setPreferredWidth(250);
 	}
 }
+
