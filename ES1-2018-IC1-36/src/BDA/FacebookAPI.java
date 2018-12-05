@@ -10,78 +10,116 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import org.json.*;
 
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
+import com.restfb.exception.FacebookException;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
 import com.restfb.json.JsonValue;
 import com.restfb.types.Post;
 
 public class FacebookAPI {
-	
+
 	private int nregistos; 
 	private JSONArray jarray = new JSONArray();
+	private String searchword ;
 
 	private String acessToken = "EAAEuGhd0BZAsBAL8fFMIUZCIJTv1CvXldtP3Bb32RiCuxQDm6LxUzOmWDGLP1ZBE4xJqkXVlYcyPkrqMXMrb6khkgIRLUlBfAW17i5BHrI6C8ZB774zeYYlYXcg2oQKvpUQRskDMZAwrNYaC9EAeESd4Dhb3W8ogZD";
-//	private String acessToken = "EAAChy5A0busBADGHfWe6CvCd3ZBWgecZAZBC48VwnsOc1ZCjwqCQoa3EyVvDmpOBIKuIbqEZAlivj3bu7vy3Ubnoku4lUtNuAVYvbk73x12GDZB0QlFYmif6xsJLpkMKVlx3a5xVixYTZCD4BguDby7fLyTgra6MEkZD";
-	
+	//	private String acessToken = "EAAChy5A0busBADGHfWe6CvCd3ZBWgecZAZBC48VwnsOc1ZCjwqCQoa3EyVvDmpOBIKuIbqEZAlivj3bu7vy3Ubnoku4lUtNuAVYvbk73x12GDZB0QlFYmif6xsJLpkMKVlx3a5xVixYTZCD4BguDby7fLyTgra6MEkZD";
+
 	private InterfaceFacebook fb;
 	public FacebookAPI() {
-		
-		connect();
+
+		//acessToken= JOptionPane.showInputDialog("Token");
+
 
 	}
-	
+
 	public void startInterface(InterfaceGeral ig) {
 		fb = new InterfaceFacebook(ig);
-		
+
 		readFile();
 	}
-	
-	public void connect() {
-		
 
-		String SearchWord = "";
+	public void connect() {
 
 		FacebookClient client = new DefaultFacebookClient(acessToken);
 
-		Connection<Post> result = client.fetchConnection("me/feed/",Post.class);
-		System.out.println("passou1");
+		try {
+			Connection<Post> result = client.fetchConnection("me/feed/",Post.class);
+			System.out.println("passou1");
 
-		JsonArray jarray = new JsonArray();
+			JsonArray jarray = new JsonArray();
 
 
-		int counter5 = 0;
-		int counterTotal = 0;
-		for (List<Post> page : result) {
-			for (Post aPost : page) {
-				// Filters only posts that contain the word "Inform"
-				//if (aPost.getMessage() != null && aPost.getMessage().contains(seachWord)) {
-				if (aPost.getMessage() != null) {
-					JsonObject obj = new JsonObject();
-					//obj.add("id", aPost.getId());
-					obj.add("message", aPost.getMessage());
-					obj.add("data", aPost.getCreatedTime().toString());
-					jarray.add(obj);
-					System.out.println(obj.toString());
+			int counter5 = 0;
+			int counterTotal = 0;
+			for (List<Post> page : result) {
+				for (Post aPost : page) {
+					// Filters only posts that contain the word "Inform"
+					System.out.println(searchword);
+					if(searchword.isEmpty() || searchword.equals("")) {
 
-					System.out.println("---- Post "+ counter5 + " ----");
-					System.out.println("Id: "+"fb.com/"+aPost.getId());
-					System.out.println("Message: "+aPost.getMessage());
-					System.out.println("Created: "+aPost.getCreatedTime());
-					counter5++;
+						if (aPost.getMessage() != null) {
+							JsonObject obj = new JsonObject();
+							//obj.add("id", aPost.getId());
+							obj.add("message", aPost.getMessage());
+							obj.add("data", aPost.getCreatedTime().toString());
+							jarray.add(obj);
+							System.out.println(obj.toString());
+
+							System.out.println("---- Post "+ counter5 + " ----");
+							System.out.println("Id: "+"fb.com/"+aPost.getId());
+							System.out.println("Message: "+aPost.getMessage());
+							System.out.println("Created: "+aPost.getCreatedTime());
+							counter5++;
+							//}
+
+							counterTotal++;
+						}
+
+					}else {
+						if (aPost.getMessage() != null) {
+							System.out.println(aPost.getMessage());
+							System.out.println(searchword);
+							if (aPost.getMessage().contains(searchword)) {
+								if (aPost.getMessage() != null) {
+									JsonObject obj = new JsonObject();
+									//obj.add("id", aPost.getId());
+									obj.add("message", aPost.getMessage());
+									obj.add("data", aPost.getCreatedTime().toString());
+									jarray.add(obj);
+									System.out.println(obj.toString());
+
+									System.out.println("---- Post "+ counter5 + " ----");
+									System.out.println("Id: "+"fb.com/"+aPost.getId());
+									System.out.println("Message: "+aPost.getMessage());
+									System.out.println("Created: "+aPost.getCreatedTime());
+									counter5++;
+								}
+
+								counterTotal++;
+							}
+						}
+					}
+
 				}
-				counterTotal++;
-			}
-		}
-		
-		nregistos = counter5;
-		savetofile(jarray);
 
-		
+				nregistos = counter5;
+				savetofile(jarray);
+
+			}
+
+		} catch (FacebookException ex) {
+
+
+		}
+
 	}
 
 	public void savetofile(JsonArray jarray) {
@@ -103,8 +141,10 @@ public class FacebookAPI {
 		}
 
 		System.out.println("Done Save");
+
+
 	}
-	
+
 	public void readFile() {
 		BufferedReader br;
 
@@ -121,13 +161,13 @@ public class FacebookAPI {
 					System.out.println("A Linha é " + line);
 					System.out.println("O objeto é " + obj);
 					jarray.put(obj);
-					
+
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
-				
+
 			}	
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
@@ -136,7 +176,7 @@ public class FacebookAPI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		fb.fillJlist(jarray);
 
 	}
@@ -144,5 +184,13 @@ public class FacebookAPI {
 	public int getNregistos() {
 		return nregistos;
 	}
-	
+
+	public void setSearchword(String searchword) {
+		this.searchword = searchword;
+	}
+
+
+
+
+
 }
