@@ -70,9 +70,10 @@ public class TwitterApi {
             
             Nregistos = counterTotal;
     		System.out.println("-------------\nNº of Results: " + counter+"/"+counterTotal);
+    		savetofile(jarray);
         } catch (Exception e) { System.out.println(e.getMessage()); }
 		
-		savetofile(jarray);
+		
 	}
 	
 	public void savetofile(JSONArray jarray) {
@@ -95,45 +96,49 @@ public class TwitterApi {
 
 		System.out.println("Done Save");
 
-		public void readFile() {
-			BufferedReader br;
-
-			JSONArray jarray = new JSONArray();
-			try {
-				Scanner sc = new Scanner(new File("Twitter.txt"));
-				System.out.println("ola1");
-
-				while (sc.hasNextLine()) {
-					String line = sc.nextLine();
-					System.out.println("ola2");
-					try {
-						JSONObject obj = new JSONObject(line);
-						System.out.println("A Linha é " + line);
-						System.out.println("O objeto é " + obj);
-						jarray.put(obj);
-						
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
-					
-				}	
-			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			
-			it.fillJlist(jarray);
-
-		}
-		
-		public int getNregistos() {
-			return Nregistos;
-		}
 
 	}
+
+	public void readFile() {
+		BufferedReader br;
+
+		JSONArray jarray = new JSONArray();
+		try {
+			Scanner sc = new Scanner(new File("Twitter.txt"));
+			System.out.println("ola1");
+
+			while (sc.hasNextLine()) {
+				String line = sc.nextLine();
+				System.out.println("ola2");
+				try {
+					JSONObject obj = new JSONObject(line);
+					System.out.println("A Linha é " + line);
+					System.out.println("O objeto é " + obj);
+					jarray.put(obj);
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				
+			}	
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		it.fillJlist(jarray);
+
+	}
+	
+	public int getNregistos() {
+		return Nregistos;
+	}
+	
+
+}
