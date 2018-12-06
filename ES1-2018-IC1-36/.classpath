@@ -17,5 +17,6 @@
 	<classpathentry exported="true" kind="lib" path="C:/Users/Patrick Medeiros/Downloads/twitter4j-stream-4.0.7.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/Patrick Medeiros/Downloads/twitter4j-async-4.0.7.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/Patrick Medeiros/Downloads/twitter4j-core-4.0.7.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

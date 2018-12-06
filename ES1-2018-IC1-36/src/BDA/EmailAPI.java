@@ -49,6 +49,22 @@ public class EmailAPI {
 		//caixaTemp(0);
 	}
 
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+
 	public void iniSessao(String mail, String pass) {
 		try {
 			Session session = Session.getDefaultInstance(props, null);
