@@ -32,15 +32,15 @@ public class EmailAPI {
 	private int nregistos; 
 	private JSONArray jarray = new JSONArray();
 
-	private String mail = "";
-	private String pass = "";
+	private String mail;
+	private String pass;
 
 
 	private InterfaceEmail IE;
 
 	public EmailAPI() {
-		//		mail = JOptionPane.showInputDialog("mail");
-		//		pass = JOptionPane.showInputDialog("pass");
+		mail = JOptionPane.showInputDialog("mail");
+		pass = JOptionPane.showInputDialog("pass");
 		props = System.getProperties();
 		props.setProperty("mail.store.protocol", "imaps");
 
@@ -73,11 +73,13 @@ public class EmailAPI {
 			//System.out.println(store);
 		} catch (Exception e) {
 			System.out.println("Erro" + e);
+			
+			
 		}
 	}
 
 	public void startInterface(InterfaceGeral ig) {
-		IE = new InterfaceEmail(ig);
+		IE = new InterfaceEmail(ig,mail,pass);
 
 		readFile();
 	}
@@ -146,8 +148,8 @@ public class EmailAPI {
 				System.out.println("ola2");
 				try {
 					JSONObject obj = new JSONObject(line);
-					System.out.println("A Linha é " + line);
-					System.out.println("O objeto é " + obj);
+					System.out.println("A Linha Ã© " + line);
+					System.out.println("O objeto Ã© " + obj);
 					jarray.put(obj);
 
 				} catch (JSONException e) {
@@ -199,4 +201,13 @@ public class EmailAPI {
 			System.out.println("Erro3"  + e);
 		}
 	}
+
+	public String getMail() {
+		return mail;
+	}
+	
+	public String getPass() {
+		return pass;
+	}
+	
 }
